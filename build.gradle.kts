@@ -20,13 +20,16 @@ dependencies {
     implementation("com.googlecode.soundlibs:vorbisspi:1.0.3-1")
 
     runtimeClasspath(project(":third-party-plugin"))
+    runtimeClasspath(project(":rickroll"))
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
     testCompileOnly(project(":third-party-plugin"))
+    testCompileOnly(project(":rickroll"))
 }
 
 // Workaround: ensure that the IDE forces the JAR to be built upon classes launch time:
 tasks["classes"].finalizedBy(":third-party-plugin:classes")
+tasks["classes"].finalizedBy(":rickroll:classes")
 
 
 application {
@@ -48,6 +51,10 @@ tasks.withType(Test::class).getByName("test") {
         systemProperty(
             "third-party-plugin-classes",
             project(":third-party-plugin").kotlin.target.compilations["main"].output.classesDirs.asPath
+        )
+        systemProperty(
+            "rickroll-classes",
+            project(":rickroll").kotlin.target.compilations["main"].output.classesDirs.asPath
         )
     }
 }
