@@ -39,6 +39,7 @@ application {
                 from(projectDir.resolve("sounds")) {
                     include("beep-*.mp3")
                     include("sample-*.mp3")
+                    include("rickroll.mp3")
                 }.into("sounds")
             }
         }
